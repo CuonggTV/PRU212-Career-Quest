@@ -51,6 +51,7 @@
     <Compile Include="Assets\Scripts\Movement\MovementScript.cs" />
     <Compile Include="Assets\Scripts\FireFighter\Extinguisher.cs" />
     <Compile Include="Assets\UnityTechnologies\ParticlePack\EffectExamples\Misc Effects\Scripts\SpawnEffect.cs" />
+    <Compile Include="Assets\Scripts\Movement\ThirdPersonController.cs" />
     <Compile Include="Assets\UnityTechnologies\ParticlePack\Shared\Scripts\ProximityActivate.cs" />
     <Compile Include="Assets\Scripts\FireFighter\Fire.cs" />
     <Compile Include="Assets\Scripts\Movement\PlayerCam.cs" />

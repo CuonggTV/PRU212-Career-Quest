@@ -138,8 +138,6 @@ public class TwoDimensionStateController : MonoBehaviour
         bool rightPressed = Keyboard.current.dKey.isPressed;
         bool runPressed = Keyboard.current.leftShiftKey.isPressed;
 
-        print(forwardPressed + " " +leftPressed+ " " + rightPressed+ " " + runPressed);
-
         float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
 
         ChangeVelocity(forwardPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
