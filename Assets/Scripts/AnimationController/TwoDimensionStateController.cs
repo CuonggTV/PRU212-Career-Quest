@@ -3,136 +3,63 @@ using UnityEngine.InputSystem;
 
 public class TwoDimensionStateController : MonoBehaviour
 {
-     Animator animator;
-    float velocityX = 0.0f;
-    float velocityZ = 0.0f;
+    public ThirdPersonController thirdPersonController;
+    private Animator animator;
+
+    private float velocityX = 0.0f;
+    private float velocityZ = 0.0f;
+
+    [Header("Movement Settings")]
     public float acceleration = 5.0f;
     public float deceleration = 5.0f;
     public float maximumWalkVelocity = 0.5f;
     public float maximumRunVelocity = 2.0f;
 
-    int VelocityXHash;
-    int VelocityZHash;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Jump Settings")]
+    public bool isGrounded;
+    public bool jumpPressed;
+
+    private int VelocityXHash;
+    private int VelocityZHash;
+
     void Start()
     {
         animator = GetComponent<Animator>();
-
-        // Increase performance
+        if (thirdPersonController == null)
+        {
+            thirdPersonController = GetComponent<ThirdPersonController>();
+        }
+        // Cache animator parameter hashes for performance
         VelocityXHash = Animator.StringToHash("Velocity X");
         VelocityZHash = Animator.StringToHash("Velocity Z");
     }
 
-    // Handles acceleration and deceleration 
-    void ChangeVelocity(bool forwardPressed, bool leftPressed, bool rightPressed, bool runPressed, float currentMaxVelocity)
+    /// <summary>
+    /// Updates velocity for a given axis based on input.
+    /// </summary>
+    /// <param name="velocity">Reference to the velocity variable (X or Z)</param>
+    /// <param name="negativePressed">Input for negative direction (e.g., left)</param>
+    /// <param name="positivePressed">Input for positive direction (e.g., right)</param>
+    /// <param name="maxVelocity">Maximum velocity depending on walk/run</param>
+    void UpdateVelocity(ref float velocity, bool negativePressed, bool positivePressed, float maxVelocity)
     {
-        // If player pressed, increase velocity in ? direction
-        if (forwardPressed && velocityZ < currentMaxVelocity)
+        if (negativePressed)
         {
-            velocityZ += Time.deltaTime * acceleration;
-
+            velocity = Mathf.MoveTowards(velocity, -maxVelocity, acceleration * Time.deltaTime);
         }
-
-        if (leftPressed && velocityX > -currentMaxVelocity)
+        else if (positivePressed)
         {
-            velocityX -= Time.deltaTime * acceleration;
+            velocity = Mathf.MoveTowards(velocity, maxVelocity, acceleration * Time.deltaTime);
         }
-
-        if (rightPressed && velocityX < currentMaxVelocity)
+        else
         {
-            velocityX += Time.deltaTime * acceleration;
-        }
-
-        // Decrease velocityZ
-        if (!forwardPressed && velocityX > 0.0f)
-        {
-            velocityZ -= Time.deltaTime * deceleration;
-        }
-        // Deceleration for left and right
-        if (!leftPressed && velocityX < -0.0f)
-        {
-            velocityX += Time.deltaTime * deceleration;
-        }
-
-        if (!rightPressed && velocityX > 0.0f)
-        {
-            velocityX -= Time.deltaTime * deceleration;
+            velocity = Mathf.MoveTowards(velocity, 0, deceleration * Time.deltaTime);
         }
     }
 
-    // Handle reset and lock velocity
-    void ResetOrLockVelocity(bool forwardPressed, bool leftPressed, bool rightPressed, bool runPressed, float currentMaxVelocity)
-    {
-        // Reset VelocityZ
-        if (!forwardPressed && velocityZ < 0.0f)
-        {
-            velocityZ = 0.0f;
-        }
-
-        
-        // Reset VelocityX
-        if (!leftPressed && !rightPressed && velocityX != 0.0f && -0.05f < velocityX && velocityX < 0.05f)
-        {
-            velocityX = 0.0f;
-        }
-
-        // Lock forward
-        if (forwardPressed && runPressed && velocityZ > currentMaxVelocity)
-        {
-            velocityZ = currentMaxVelocity;
-        }
-        else if (forwardPressed && velocityZ > currentMaxVelocity)
-        {
-            velocityZ -= Time.deltaTime * deceleration;
-        }
-        else if (forwardPressed && velocityZ < currentMaxVelocity && velocityZ > (currentMaxVelocity - 0.05f))
-        {
-            velocityZ = currentMaxVelocity;
-        }
-
-        // Lock left
-        if (leftPressed && runPressed && velocityX < -currentMaxVelocity)
-        {
-            velocityX = -currentMaxVelocity;
-        }
-        else if (leftPressed && velocityZ < -currentMaxVelocity)
-        {
-            velocityX += Time.deltaTime * deceleration;
-            // Round the currentmaxVelocity if within offset
-            if (velocityX < -currentMaxVelocity && velocityX > (-currentMaxVelocity - 0.05f))
-            {
-                velocityX = -currentMaxVelocity;
-            }
-        }
-        else if (leftPressed && velocityX > -currentMaxVelocity && velocityX < (-currentMaxVelocity + 0.05f))
-        {
-            velocityZ = currentMaxVelocity;
-        }
-
-        // Lock right
-        if (rightPressed && runPressed && velocityX > currentMaxVelocity)
-        {
-            velocityZ = currentMaxVelocity;
-        }
-        else if (rightPressed && velocityX > currentMaxVelocity)
-        {
-            velocityX -= Time.deltaTime * deceleration;
-             // Round the currentmaxVelocity if within offset
-            if (velocityX > currentMaxVelocity && velocityX < (currentMaxVelocity + 0.05f))
-            {
-                velocityX = currentMaxVelocity;
-            }
-        }
-        else if (rightPressed && velocityX < currentMaxVelocity && velocityX > (currentMaxVelocity - 0.05f))
-        {
-            velocityX = currentMaxVelocity;
-        }
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        // Input will be true if the player is pressing on the passed in key parameter
+        // Input handling (polling keys)
         bool forwardPressed = Keyboard.current.wKey.isPressed;
         bool leftPressed = Keyboard.current.aKey.isPressed;
         bool rightPressed = Keyboard.current.dKey.isPressed;
@@ -140,11 +67,17 @@ public class TwoDimensionStateController : MonoBehaviour
 
         float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
 
-        ChangeVelocity(forwardPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
-        ResetOrLockVelocity(forwardPressed, leftPressed, rightPressed, runPressed, currentMaxVelocity);
-        
-        // Set parameter to our local variable values
+        // Update movement velocities
+        UpdateVelocity(ref velocityZ, false, forwardPressed, currentMaxVelocity);
+        UpdateVelocity(ref velocityX, leftPressed, rightPressed, currentMaxVelocity);
+
+        // Update jumping
+
+        // Apply to Animator
         animator.SetFloat(VelocityXHash, velocityX);
         animator.SetFloat(VelocityZHash, velocityZ);
+        animator.SetBool("IsGround", thirdPersonController.IsGrounded());
+        animator.SetBool("JumpPress", thirdPersonController.JumpPressed());
+
     }
 }

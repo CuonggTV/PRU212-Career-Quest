@@ -3,36 +3,45 @@ using UnityEngine;
 public class ThirdPersonController : MonoBehaviour
 {
     public CharacterController controller;
+    private Animator animator;
+
     public Transform camera;
 
-    // GROUND
+    [Header("Jump Settings")]
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-
-    public bool isGrounded;
-    //
+    private float gravity = -9.81f;    
     public Vector3 velocity;
 
-    private float gravity = -9.81f;
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     public float turnSmoothVelocity = 0.1f;
 
     public float jumpHeight = 3f;
+
+    public bool IsGrounded()
+    {
+        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    }
+
+    public bool JumpPressed()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
     void Update()
     {
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
+        var isGrounded = IsGrounded();
         if (!isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (JumpPressed() && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
