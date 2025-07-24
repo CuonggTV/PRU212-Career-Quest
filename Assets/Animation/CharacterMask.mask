@@ -1,0 +1,167 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CharacterMask
+  m_Mask: 00000000010000000100000000000000000000000100000001000000010000000100000000000000000000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Characters
+    m_Weight: 1
+  - m_Path: Characters/spine
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/neck
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/neck/head
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/thumb.01.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/thumb.01.L/thumb.02.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/fingerleft.01.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/fingerleft.01.L/fingerleft.02.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/fingerright.01.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.L/upperarm.L/forearm.L/hand.L/fingerright.01.L/fingerright.02.L
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/thumb.01.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/thumb.01.R/thumb.02.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/fingerleft.01.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/fingerleft.01.R/fingerleft.02.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/fingerright.01.R
+    m_Weight: 1
+  - m_Path: Characters/spine/spine.01/spine.02/spine.03/shoulder.R/upperarm.R/forearm.R/hand.R/fingerright.01.R/fingerright.02.R
+    m_Weight: 1
+  - m_Path: Characters/spine/pelvis.L
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.L
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.L/shin.L
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.L/shin.L/foot.L
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.L/shin.L/foot.L/toe.L
+    m_Weight: 1
+  - m_Path: Characters/spine/pelvis.R
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.R
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.R/shin.R
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.R/shin.R/foot.R
+    m_Weight: 1
+  - m_Path: Characters/spine/thigh.R/shin.R/foot.R/toe.R
+    m_Weight: 1
+  - m_Path: SK_Char_Boss_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Boss_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Jacket_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Jacket_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Male_01
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Male_02
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Male_03
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Skirt_Female_01
+    m_Weight: 1
+  - m_Path: SK_Char_Casual_Skirt_Female_02
+    m_Weight: 1
+  - m_Path: SK_Char_CourierBoy_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Doctor_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Doctor_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Farmer_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Farmer_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Firefighter_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Gym_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Gym_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Labour_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Labour_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Old_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Old_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Pilot_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Police_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Police_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Prisoner_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Prisoner_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Professional_Female_01
+    m_Weight: 1
+  - m_Path: SK_Char_Professional_Female_02
+    m_Weight: 1
+  - m_Path: SK_Char_Professional_Male_01
+    m_Weight: 1
+  - m_Path: SK_Char_Professional_Male_02
+    m_Weight: 1
+  - m_Path: SK_Char_SchoolStudent_Female
+    m_Weight: 1
+  - m_Path: SK_Char_SchoolStudent_Male
+    m_Weight: 1
+  - m_Path: SK_Char_Security_Male
+    m_Weight: 1
+  - m_Path: SK_Char_ShopAssistant_Female_01
+    m_Weight: 1
+  - m_Path: SK_Char_ShopAssistant_Female_02
+    m_Weight: 1
+  - m_Path: SK_Char_ShopAssistant_Male_01
+    m_Weight: 1
+  - m_Path: SK_Char_ShopAssistant_Male_02
+    m_Weight: 1
+  - m_Path: SK_Char_Swimwear_Female
+    m_Weight: 1
+  - m_Path: SK_Char_Swimwear_Male
+    m_Weight: 1

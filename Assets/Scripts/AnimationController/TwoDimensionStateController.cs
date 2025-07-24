@@ -16,7 +16,6 @@ public class TwoDimensionStateController : MonoBehaviour
     public float maximumRunVelocity = 2.0f;
 
     [Header("Jump Settings")]
-    public bool isGrounded;
     public bool jumpPressed;
 
     private int VelocityXHash;
@@ -34,13 +33,6 @@ public class TwoDimensionStateController : MonoBehaviour
         VelocityZHash = Animator.StringToHash("Velocity Z");
     }
 
-    /// <summary>
-    /// Updates velocity for a given axis based on input.
-    /// </summary>
-    /// <param name="velocity">Reference to the velocity variable (X or Z)</param>
-    /// <param name="negativePressed">Input for negative direction (e.g., left)</param>
-    /// <param name="positivePressed">Input for positive direction (e.g., right)</param>
-    /// <param name="maxVelocity">Maximum velocity depending on walk/run</param>
     void UpdateVelocity(ref float velocity, bool negativePressed, bool positivePressed, float maxVelocity)
     {
         if (negativePressed)
@@ -59,12 +51,13 @@ public class TwoDimensionStateController : MonoBehaviour
 
     void Update()
     {
-        // Input handling (polling keys)
+        // Handle input
         bool forwardPressed = Keyboard.current.wKey.isPressed;
         bool leftPressed = Keyboard.current.aKey.isPressed;
         bool rightPressed = Keyboard.current.dKey.isPressed;
         bool runPressed = Keyboard.current.leftShiftKey.isPressed;
 
+        bool isGrounded = thirdPersonController.IsGrounded();
         float currentMaxVelocity = runPressed ? maximumRunVelocity : maximumWalkVelocity;
 
         // Update movement velocities
@@ -72,12 +65,29 @@ public class TwoDimensionStateController : MonoBehaviour
         UpdateVelocity(ref velocityX, leftPressed, rightPressed, currentMaxVelocity);
 
         // Update jumping
-
-        // Apply to Animator
         animator.SetFloat(VelocityXHash, velocityX);
         animator.SetFloat(VelocityZHash, velocityZ);
-        animator.SetBool("IsGround", thirdPersonController.IsGrounded());
+        animator.SetBool("IsGround", isGrounded );
         animator.SetBool("JumpPress", thirdPersonController.JumpPressed());
 
+        // Audio Play
+        if (jumpPressed)
+        {
+            AudioManager.instance.PlaySFX(AudioManager.instance.jump);
+        }
+        else if (runPressed && isGrounded)
+        {
+            AudioManager.instance.PlayMovementLoop(AudioManager.instance.run);
+        }
+        else if ((forwardPressed || leftPressed || rightPressed) && isGrounded)
+        {
+            AudioManager.instance.PlayMovementLoop(AudioManager.instance.walk);
+        }
+        else
+        {
+            AudioManager.instance.StopMovementLoop();
+        }
+
     }
+
 }

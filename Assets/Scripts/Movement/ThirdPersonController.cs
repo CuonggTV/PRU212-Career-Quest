@@ -1,17 +1,18 @@
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class ThirdPersonController : MonoBehaviour
 {
     public CharacterController controller;
     private Animator animator;
-
     public Transform camera;
 
     [Header("Jump Settings")]
+    public float gravityMultiplier = 1.5f;
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    private float gravity = -9.81f;    
+    private float gravity = -9.81f;
     public Vector3 velocity;
 
     public float speed = 6f;
@@ -19,6 +20,8 @@ public class ThirdPersonController : MonoBehaviour
     public float turnSmoothVelocity = 0.1f;
 
     public float jumpHeight = 3f;
+
+    public bool rotateOnMove = true;
 
     public bool IsGrounded()
     {
@@ -29,9 +32,13 @@ public class ThirdPersonController : MonoBehaviour
     {
         return Input.GetKeyDown(KeyCode.Space);
     }
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
-        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
 
@@ -43,6 +50,7 @@ public class ThirdPersonController : MonoBehaviour
 
         if (JumpPressed() && isGrounded)
         {
+            // Play sound jump
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
         // Store direction
@@ -51,13 +59,18 @@ public class ThirdPersonController : MonoBehaviour
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + camera.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+            if (rotateOnMove) transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             var moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(speed * Time.deltaTime * moveDir.normalized);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravityMultiplier * gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    public void SetRotationOnMove(bool newRotationOnMove)
+    {
+        rotateOnMove = newRotationOnMove;
     }
 }
